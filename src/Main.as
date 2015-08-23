@@ -18,7 +18,7 @@ package {
 		public static const startWidth:int = 200;
 		public static const minWidth:int = 50;
 		public static const startSpeed:int = 500;
-		public static const speedDelta:int = 0.5;
+		public static const speedDelta:Number = 0.5;
 
 		private var defaultGame:Game;
 		private var input:Input = new Input(0, .034, false);
@@ -228,18 +228,16 @@ package {
 				defaultGame = getDefaultGame();
 				defaultGame.state = State.Playing;
 				return defaultGame;
-			} else {
-				if (game.cnt > game.score + 200) {
-					defaultGame = getDefaultGame();
-					defaultGame.state = State.Waiting;
-					return defaultGame;
-				} else {
-					game.debri = stepDebri(input.delta, game.cnt, game.ship, game.debri);
-					game.ship = hideShip(game.ship);
-					game.cnt++;
-					return game;
-				}
 			}
+		    if (game.cnt > game.score + 200) {
+		        defaultGame = getDefaultGame();
+		        defaultGame.state = State.Waiting;
+		        return defaultGame;
+		    }
+		    game.debri = stepDebri(input.delta, game.cnt, game.ship, game.debri);
+		    game.ship = hideShip(game.ship);
+		    game.cnt++;
+		    return game;
 		}
 
 		private function stepWaiting(input:Input, game:Game):Game {
